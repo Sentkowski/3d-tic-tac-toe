@@ -27,71 +27,112 @@ const gameBoard = (function () {
     const checkIfDiffRows = (start, dist) => (Math.floor(start / 3) === 0
         && Math.floor((start + dist) / 3) === 1
         && Math.floor((start + 2 * dist) / 3) === 2);
-    const checkIfSameRow = (start, dist) => (Math.floor(start / 3) === 0
-        && Math.floor((start + dist) / 3) === 0
-        && Math.floor((start + 2 * dist) / 3) === 0);
-
+    const checkIfSameRow = (start, dist) => (
+           Math.floor((start + dist) / 3) === Math.floor(start / 3)
+        && Math.floor((start + 2 * dist) / 3) === Math.floor(start / 3));
+    const checkIfDiffLevels = (start, dist) => (
+        Math.floor(((start + dist) % 9) / 3) === Math.floor(start / 3)
+        && Math.floor(((start + 2 * dist) % 18) / 3) === Math.floor(start / 3)
+        && Math.floor(((start + 2 * dist) % 18) / 3) === Math.floor(((start + dist) % 9) / 3));
+    const checkIfAcrossLevels = (start, dist) => (
+           Math.floor(((start + dist) % 9) / 3) !== Math.floor(start / 3)
+        && Math.floor(((start + 2 * dist) % 18) / 3) !== Math.floor(start / 3)
+        && Math.floor(((start + 2 * dist) % 18) / 3) !== Math.floor(((start + dist) % 9) / 3));
         
     const onLevelDistances = {
         right: {
             dist: 1,
-            requirements: [
-                checkIfWithinLevel,
-                checkIfSameRow,
-            ]
+            req: checkIfSameRow,
         },
         down: {
             dist: 3,
-            requirements: [
-                checkIfWithinLevel,
-                checkIfDiffRows,
-            ]
+            req: checkIfDiffRows,
         },
         diag: {
             dist: 4,
-            requirements: [
-                checkIfWithinLevel,
-                checkIfDiffRows,
-            ]
+            req: checkIfDiffRows,
         },
         diagBack: {
             dist: 2,
-            requirements: [
-                checkIfWithinLevel,
-                checkIfDiffRows,
-            ]
+            req: checkIfDiffRows,
+        }
+    }
+
+    const crossLevelDistances = {
+        down: {
+            dist: 9,
+            req: checkIfDiffLevels,
+        },
+        diagDown: {
+            dist: 12,
+            req: checkIfAcrossLevels,
+        },
+        diagRight: {
+            dist: 10,
+            req: checkIfDiffLevels,
+        },
+        diagDiag: {
+            dist: 13,
+            req: checkIfAcrossLevels,
+        },
+        diagLeft: {
+            dist: 8,
+            req: checkIfDiffLevels,
+        },
+        diagUp: {
+            dist: 6,
+            req: checkIfAcrossLevels,
+        },
+        diagUpLeft: {
+            dist: 5,
+            req: checkIfAcrossLevels,
         }
     }
 
     const checkOnLevelWin = (level) => {
         for (let i = 0; i < level.length; i++) {
             if (!level[i]) continue;
-    toCheckLoop:
             for (let dir in onLevelDistances) {
                 const toCheck = onLevelDistances[dir];
-                for (let req of toCheck.requirements) {
-                    if (!req(i, toCheck.dist)) continue toCheckLoop;
+                if (!toCheck.req(i, toCheck.dist) || !checkIfWithinLevel(i, toCheck.dist)) {
+                    continue;
+                } else if (level[i] === level[i + toCheck.dist]
+                           && level[i] === level[i + toCheck.dist * 2]) {
+                    const winningCombination = [i, i + toCheck.dist, i + toCheck.dist * 2];
+                    return winningCombination;
                 }
-                if (level[i] === level[i + toCheck.dist]
-                    && level[i] === level[i + toCheck.dist * 2]) return level[i];
             }
         }
     }
 
-    const crossLevelDistances = {
-        down: 9,
-        diagDown: 12,
-        diagRight: 10,
-        diagDiag: 13,
-        diagLeft: 8,
-        diagUp: 6,
+    const checkAcrossLevelWin = gameLevels => {
+        const merged = [].concat(...gameLevels);
+        const firstLevel = gameLevels[0];
+        for (let i = 0; i < firstLevel.length; i++) {
+            if (!firstLevel[i]) continue;
+            for (let dir in crossLevelDistances) {
+                const toCheck = crossLevelDistances[dir];
+                if (!toCheck.req(i, toCheck.dist) || !checkIfWithinGame(i, toCheck.dist)) {
+                    continue;
+                } else if (merged[i] === merged[i + toCheck.dist]
+                           && merged[i] === merged[i + toCheck.dist * 2]) {
+                    const winningCombination = [i, i + toCheck.dist, i + toCheck.dist * 2];
+                    return winningCombination;
+                }
+            }
+        }
     }
     
     const checkWin = () => {
         for (let level of gameLevels) {
             if (checkOnLevelWin(level)) {
-                return checkOnLevelWin(level);
+                return checkOnLevelWin(level).map(square => square + gameLevels.indexOf(level) * 9);
             }
+        }
+        if (checkAcrossLevelWin(gameLevels)) {
+            return checkAcrossLevelWin(gameLevels);
+        } else {
+            return false;
         }
     };
 
@@ -105,7 +146,14 @@ const gameDisplayController = (function () {
         chosen.classList.add(`marked-${playerMark}`);
         chosen.textContent = playerMark;
     }
-    return { markSquare };
+
+    const announceWinner = (winComb) => {
+        const squares = document.querySelectorAll(".square button");
+        const squaresToHighlight = winComb.map(sqInd => squares[sqInd]);
+        squaresToHighlight.forEach(sq => sq.classList.add('winning'));
+    }
+
+    return { markSquare, announceWinner };
 })();
 
 
@@ -125,7 +173,10 @@ const gameFlowController = (function () {
             if (gameBoard.insertMove(currPlayer, level, position) !== false) {
                 gameDisplayController.markSquare(currPlayer, level, position);
                 _nextPlayer();
-                console.log(gameBoard.checkWin())
+                const winResults = gameBoard.checkWin();
+                if (winResults) {
+                    gameDisplayController.announceWinner(winResults);
+                }
             }
         });
     });

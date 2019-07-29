@@ -41,8 +41,8 @@ body {
     }
 }
 
-.square:nth-of-type(odd) {
-    .mark-button {
+.li:nth-of-type(odd) {
+    button {
         border-color: #6141A6;
     }
 }
@@ -54,7 +54,8 @@ body {
     cursor: pointer;
     outline-color: red;
     border: 2px solid #7F6DF2;
-    transition: transform 0.1s, background-color 0.2s;
+    border-radius: 2px;
+    transition: transform 0.1s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
     font: 400 32px 'Roboto', sans-serif;
     color: #000000;
 
@@ -69,5 +70,11 @@ body {
     &.marked-O {
         background-color: hsl(173, 100%, 70%);
         box-shadow: 0 0 4px 0px hsl(173, 100%, 70%);
+    }
+
+    &.winning {
+        border-color: #ffffff;
+        background-color: #ffffff;
+        box-shadow: 0 0 16px 2px hsl(173, 100%, 100%);
     }
 }
