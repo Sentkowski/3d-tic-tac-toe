@@ -7,18 +7,29 @@
   <title></title>
   <meta name="description" content="" />
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <main class="game-container">
     <header class="game-info">
       <div class="players-details">
-        <h2 class="players">Players:</h2>
-        <p class="player-name"></p>
-        <p class="player-name"></p>  
+        <div class="player-name-wrapper">
+          <input class="player-name" type="text" minlength="1" maxlength="20">
+        </div>
+        <div class="player-name-wrapper">
+          <input class="player-name" type="text" minlength="1" maxlength="20">
+        </div>
+        <p class="rename-note">
+          <small class="rename-note-text">Tap on a name to change it</small>
+        </p>  
       </div>
     </header>
-    <section class="game-board">
+    <section class="game-board deactivated">
+      <div class="player-message">
+        <p class="player-message-text"></p>
+        <div class="player-mark"></div>
+      </div>
       <ul data-position="top" class="level">
         <li class="square"> <button class="mark-button"></button> </li>
         <li class="square"> <button class="mark-button"></button> </li>

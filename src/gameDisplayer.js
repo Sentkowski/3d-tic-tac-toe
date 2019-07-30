@@ -19,7 +19,11 @@ const gameDisplayer = (function () {
         })
     }
 
-    return { markSquare, announceWinner, resetSquares };
+    const toggleActive = () => {
+        document.querySelector('.game-board').classList.toggle('deactivated');
+    }
+
+    return { markSquare, announceWinner, resetSquares, toggleActive };
 })();
 
 export default gameDisplayer;
