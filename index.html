@@ -11,6 +11,13 @@
 
 <body>
   <main class="game-container">
+    <header class="game-info">
+      <div class="players-details">
+        <h2 class="players">Players:</h2>
+        <p class="player-name"></p>
+        <p class="player-name"></p>  
+      </div>
+    </header>
     <section class="game-board">
       <ul data-position="top" class="level">
         <li class="square"> <button class="mark-button"></button> </li>
@@ -45,8 +52,11 @@
         <li class="square"> <button class="mark-button"></button> </li>
         <li class="square"> <button class="mark-button"></button> </li>
       </ul>
+      <button class="rotate-left"></button>
+      <button class="rotate-right"></button>
+      <button class="start">start</button>
     </section>
   </main>
-  <script src="scripts.js"></script>
+  <script src="dist/main.js"></script>
 </body>
 </html>

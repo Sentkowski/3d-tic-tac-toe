@@ -52,31 +52,43 @@ body {
   background-color: #0D000D; }
 
 .game-container {
+  width: 100%;
+  margin-left: auto;
   display: flex;
   height: 100vh;
   justify-content: center;
-  align-items: center; }
+  align-items: flex-end; }
 
 .game-board {
-  perspective: 2000px;
-  perspective-origin: center;
-  transition: perspective-origin 0.2s; }
+  width: 50%;
+  min-width: 300px;
+  height: 100%;
+  position: relative;
+  perspective: 3000px;
+  perspective-origin: center 100vh;
+  transition: perspective-origin 0.2s;
+  margin-bottom: 50px; }
 
 .level {
-  position: relative;
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
   display: grid;
   grid-gap: 2px;
-  width: 30vh;
-  height: 30vh;
+  width: 230px;
+  height: 230px;
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
   transform: rotate3d(1, 0, 0, 50deg);
-  margin-bottom: -20%; }
+  transition: transform 0.8s; }
   .level:nth-of-type(1) {
-    z-index: 3; }
+    z-index: 3;
+    transform: rotateX(50deg) translateZ(50vh) translateX(-50%); }
   .level:nth-of-type(2) {
-    z-index: 2; }
+    z-index: 2;
+    transform: rotateX(50deg) translateZ(25vh) translateX(-50%); }
   .level:nth-of-type(3) {
-    z-index: 1; }
+    z-index: 1;
+    transform: rotateX(50deg) translateX(-50%); }
 
 .li:nth-of-type(odd) button {
   border-color: #6141A6; }
@@ -91,9 +103,11 @@ body {
   border-radius: 2px;
   transition: transform 0.1s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
   font: 400 32px 'Roboto', sans-serif;
-  color: #000000; }
+  color: #000000;
+  background-color: #0D000D;
+  transform-origin: center; }
   .mark-button:active {
-    transform: translateY(5px); }
+    transform: scale(0.9); }
   .mark-button.marked-X {
     background-color: #66c4ff;
     box-shadow: 0 0 4px 0px #66c4ff; }
@@ -104,3 +118,50 @@ body {
     border-color: #ffffff;
     background-color: #ffffff;
     box-shadow: 0 0 16px 2px white; }
+
+.rotate-left, .rotate-right {
+  position: absolute;
+  height: 32px;
+  width: 32px;
+  background: url(images/rotate-arrow.svg) center/cover no-repeat;
+  border: none;
+  bottom: 40%;
+  cursor: pointer;
+  transition: background-color 0.2s; }
+  .rotate-left:active, .rotate-right:active {
+    background-color: #3dadf2; }
+
+.rotate-left {
+  left: 50%;
+  transform: translateX(calc(-175px - 50%)); }
+
+.rotate-right {
+  left: 50%;
+  transform: translateX(calc(175px - 50%)) scaleX(-1); }
+
+.start {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+  font: 400 22px 'Roboto', sans-serif;
+  color: #ffffff;
+  transform: translateX(-50%);
+  background: transparent;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border 0.2s, color 0.2s;
+  letter-spacing: 2px; }
+  .start.restart {
+    border: 2px solid rgba(0, 0, 0, 0);
+    color: #dad8d8;
+    letter-spacing: 1px; }
+
+.game-info {
+  align-self: flex-start;
+  margin-top: 100px; }
+
+.players-details {
+  color: #ffffff; }

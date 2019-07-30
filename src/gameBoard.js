@@ -1,13 +1,3 @@
-// (function() {
-//     const board = document.querySelector(".game-board");
-//     const levels = document.querySelectorAll(".level");
-//     levels.forEach(level => {
-//         level.addEventListener('mouseover', (e) => {
-//             board.style.perspectiveOrigin = `center ${level.dataset.position}`;
-//         }, false);
-//     });
-// })();
-
 const gameBoard = (function () {
     let gameLevels = [
         new Array(9).fill(null),
@@ -22,8 +12,17 @@ const gameBoard = (function () {
         gameLevels[level][square] = playerMark;
     }
 
+    const clearBoard = () => {
+        gameLevels = [
+            new Array(9).fill(null),
+            new Array(9).fill(null),
+            new Array(9).fill(null),
+        ];
+    }
+
     const checkIfWithinLevel = (start, dist) => start + dist * 2 < 9;
-    const checkIfWithinGame = (start, dist) => start + dist * 2 < 27;
+    const checkIfWithinLevels = (start, dist) => Math.floor((start + dist) / 9) === 1
+        && Math.floor((start + dist * 2) / 9) === 2;
     const checkIfDiffRows = (start, dist) => (Math.floor(start / 3) === 0
         && Math.floor((start + dist) / 3) === 1
         && Math.floor((start + 2 * dist) / 3) === 2);
@@ -37,7 +36,7 @@ const gameBoard = (function () {
     const checkIfAcrossLevels = (start, dist) => (
            Math.floor(((start + dist) % 9) / 3) !== Math.floor(start / 3)
         && Math.floor(((start + 2 * dist) % 18) / 3) !== Math.floor(start / 3)
-        && Math.floor(((start + 2 * dist) % 18) / 3) !== Math.floor(((start + dist) % 9) / 3));
+        && Math.floor(((start + 2 * dist) % 18) / 3) !== Math.floor(((start + dist) % 9) / 3))
         
     const onLevelDistances = {
         right: {
@@ -86,6 +85,10 @@ const gameBoard = (function () {
         diagUpLeft: {
             dist: 5,
             req: checkIfAcrossLevels,
+        },
+        diagDownLeft: {
+            dist: 11,
+            req: checkIfAcrossLevels,
         }
     }
 
@@ -112,7 +115,7 @@ const gameBoard = (function () {
             if (!firstLevel[i]) continue;
             for (let dir in crossLevelDistances) {
                 const toCheck = crossLevelDistances[dir];
-                if (!toCheck.req(i, toCheck.dist) || !checkIfWithinGame(i, toCheck.dist)) {
+                if (!toCheck.req(i, toCheck.dist) || !checkIfWithinLevels(i, toCheck.dist)) {
                     continue;
                 } else if (merged[i] === merged[i + toCheck.dist]
                            && merged[i] === merged[i + toCheck.dist * 2]) {
@@ -136,66 +139,7 @@ const gameBoard = (function () {
         }
     };
 
-    return { checkWin, insertMove }
+    return { checkWin, insertMove, clearBoard }
 })();
 
-
-const gameDisplayController = (function () {
-    const markSquare = (playerMark, level, square) => {
-        const chosen = document.querySelectorAll(".square button")[level * 9 + square];
-        chosen.classList.add(`marked-${playerMark}`);
-        chosen.textContent = playerMark;
-    }
-
-    const announceWinner = (winComb) => {
-        const squares = document.querySelectorAll(".square button");
-        const squaresToHighlight = winComb.map(sqInd => squares[sqInd]);
-        squaresToHighlight.forEach(sq => sq.classList.add('winning'));
-    }
-
-    return { markSquare, announceWinner };
-})();
-
-
-const gameFlowController = (function () {
-
-    let currPlayer = 'X';
-
-    function _nextPlayer() {
-        currPlayer = (currPlayer === 'X') ? 'O' : 'X';
-    }
-
-    const squares = document.querySelectorAll(".square");
-    squares.forEach((square, i) => {
-        const level = Math.floor(i / 9);
-        const position = i - level * 9;
-        square.addEventListener('click', () => {
-            if (gameBoard.insertMove(currPlayer, level, position) !== false) {
-                gameDisplayController.markSquare(currPlayer, level, position);
-                _nextPlayer();
-                const winResults = gameBoard.checkWin();
-                if (winResults) {
-                    gameDisplayController.announceWinner(winResults);
-                }
-            }
-        });
-    });
-})();
-
-(function () {
-    let curr = 0;
-
-    _setPerspective = (delta) => {
-        curr += delta;
-        curr = Math.min(curr, 1000);
-        curr = Math.max(curr, -200);
-        const board = document.querySelector(".game-board");
-        board.style.perspectiveOrigin = `center ${curr}px`;
-    }
-
-    const _scrollHandler = (e) => {
-        _setPerspective(e.deltaY);
-    }
-
-    document.addEventListener('wheel', _scrollHandler);
-})();
+export default gameBoard;
