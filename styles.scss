@@ -46,7 +46,14 @@ body {
         transition: none;
     }
 
+    &.changed-mode {
+        opacity: 1;
 
+        .level {     
+            transition: transform 0.8s, opacity 0.3s;
+        }
+    }
+    
 }
 
 @keyframes appear {

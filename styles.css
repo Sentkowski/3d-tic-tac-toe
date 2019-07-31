@@ -80,6 +80,10 @@ body {
   .game-board.changing-mode .level {
     animation: appear 0.3s forwards;
     transition: none; }
+  .game-board.changed-mode {
+    opacity: 1; }
+    .game-board.changed-mode .level {
+      transition: transform 0.8s, opacity 0.3s; }
 
 @keyframes appear {
   from {

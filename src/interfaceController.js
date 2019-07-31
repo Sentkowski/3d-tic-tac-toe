@@ -1,6 +1,4 @@
 import gameFlowController from './gameFlowController';
-import gameDisplayer from './gameDisplayer.js';
-import boardExpander from './boardExpander';
 
 const interfaceController = (function () {
     let currPersp = window.innerHeight;
@@ -10,6 +8,12 @@ const interfaceController = (function () {
         'rotateX(50deg) translateZ(75vh) translateX(-50%) rotateZ(0deg)',
         'rotateX(50deg) translateZ(50vh) translateX(-50%) rotateZ(0deg)',
         'rotateX(50deg) translateZ(25vh) translateX(-50%) rotateZ(0deg)',
+    ];
+    const initialExpandedLevelTranforms = [
+        'rotateX(50deg) translateZ(83vh) translateX(-50%) rotateZ(0deg)',
+        'rotateX(50deg) translateZ(65vh) translateX(-50%) rotateZ(0deg)',
+        'rotateX(50deg) translateZ(45vh) translateX(-50%) rotateZ(0deg)',
+        'rotateX(50deg) translateZ(25vh) translateX(-50%) rotateZ(0deg)'
     ];
 
     const winMessage = ' wins!';
@@ -46,8 +50,10 @@ const interfaceController = (function () {
     const handleRotateButton = (e) => {
         const rotateDelta = e.target.classList.contains('rotate-left') ? 90 : -90;
         const levels = document.querySelectorAll(".level");
+        const styles = (gameFlowController.getGameSize() === 3) ?
+                initialLevelTranforms : initialExpandedLevelTranforms;
         for (let i = 0; i < levels.length; i++) {
-            levels[i].style.transform = initialLevelTranforms[i].replace(
+            levels[i].style.transform = styles[i].replace(
                     'rotateZ(0deg)', `rotateZ(${currRotate + rotateDelta}deg)`);
         }
         currRotate += rotateDelta;
@@ -56,11 +62,7 @@ const interfaceController = (function () {
     const handleStart = (e) => {
         if (!gameStarted) {
             gameFlowController.gameInit();
-
-            gameDisplayer.toggleActive();
-
             gameStarted = true;
-
             const startButton = document.querySelector(".start");
             startButton.classList.add('restart');
             startButton.textContent = 'restart';
@@ -105,7 +107,8 @@ const interfaceController = (function () {
     }
 
     const handleGameModeChange = () => {
-        boardExpander.expand();
+        gameFlowController.expandGame();
+        currRotate = 0;
     }
 
     const appendScore = () => {

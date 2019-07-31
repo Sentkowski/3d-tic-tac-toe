@@ -13,6 +13,6 @@ const Player = (n, m) => {
     const getDefaultName = () => defaultName;
 
     return { rename, getName, getMark, getWins, addWin, getDefaultName }
-}
+};
 
 export default Player;

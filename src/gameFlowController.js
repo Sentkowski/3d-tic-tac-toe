@@ -2,6 +2,7 @@ import gameBoard from './gameBoard.js';
 import gameDisplayer from './gameDisplayer.js';
 import Player from './Player';
 import interfaceController from './interfaceController.js';
+import boardExpander from './boardExpander.js';
 
 const gameFlowController = (function () {
 
@@ -12,7 +13,11 @@ const gameFlowController = (function () {
 
     let gameFinished = false;
 
+    let gameSize = 3;
+
     const getCurrPlayer = () => currPlayer;
+
+    const getGameSize = () => gameSize;
 
     function _nextPlayer() {
         currPlayer = (currPlayer === playerOne) ? playerTwo : playerOne;
@@ -28,21 +33,22 @@ const gameFlowController = (function () {
     }
 
     const gameInit = () => {
+        gameFinished = false;
+        currPlayer = null;
         const squares = document.querySelectorAll(".square");
         squares.forEach((square, i) => {
-            const level = Math.floor(i / 9);
-            const position = i - level * 9;
-            square.addEventListener('click', () => handleSquareClick(level, position));
+            square.addEventListener('click', () => handleSquareClick(i));
         });
+        gameDisplayer.toggleActive();
         setTimeout(() => {
             _nextPlayer();
-        }, 600);
+        }, 200);
     }
 
-    const handleSquareClick = (level, position) => {
+    const handleSquareClick = (position) => {
         if (gameFinished) return;
-        if (gameBoard.insertMove(currPlayer.getMark(), level, position) !== false) {
-            gameDisplayer.markSquare(currPlayer.getMark(), level, position);
+        if (gameBoard.insertMove(currPlayer.getMark(), position) !== false) {
+            gameDisplayer.markSquare(currPlayer.getMark(), position);
             const winResults = gameBoard.checkWin();
             if (winResults) {
                 currPlayer.addWin();
@@ -56,11 +62,18 @@ const gameFlowController = (function () {
         }
     }
 
+    function expandGame() {
+        gameSize = 4;
+        gameDisplayer.resetSquares();
+        gameBoard.gameResize();
+        boardExpander.expand();
+    }
+
     const getPlayers = () => {
         return [playerOne, playerTwo];
     }
 
-    return { gameInit, clearGame, getPlayers, getCurrPlayer }
+    return { gameInit, clearGame, getPlayers, getCurrPlayer, expandGame, getGameSize }
 })();
 
 export default gameFlowController;

@@ -1,3 +1,5 @@
+import gameFlowController from "./gameFlowController";
+
 const boardExpander = (function () {
 
     const initialLevelTranforms = [
@@ -55,8 +57,16 @@ const boardExpander = (function () {
             addLevel();
             expandLevelNodes();
             styleForExpanded();
-            board.classList.toggle('changing-mode');
+            board.classList.add('changing-mode');
+            gameFlowController.gameInit();
         }, 400);
+        setTimeout(() => {
+            const newLevels = document.querySelectorAll('.level');
+            newLevels.forEach(level => {
+                level.style.opacity = 1;
+            });
+            board.classList.replace('changing-mode', 'changed-mode');
+        }, 700);
     }
 
     return { expand };
