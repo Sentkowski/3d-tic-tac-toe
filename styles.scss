@@ -40,6 +40,18 @@ body {
     &.deactivated .level:nth-of-type(3) {
         transform: rotateX(50deg) translateZ(25vh) translateX(-50%);
     }
+
+    &.changing-mode .level {
+        animation: appear 0.3s forwards;
+        transition: none;
+    }
+
+
+}
+
+@keyframes appear {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 .level {
@@ -52,7 +64,7 @@ body {
     height: 230px;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     transform: rotate3d(1, 0, 0, 50deg);
-    transition: transform 0.8s;
+    transition: transform 0.8s, opacity 0.3s;
     transform-style: preserve-3d;
     margin-bottom: -20vh;
 
@@ -160,13 +172,15 @@ body {
 .game-info {
     align-self: flex-start;
     margin-top: 100px;
-    
+    display: flex;
+    flex-direction: column;
 }
 
 .players-details {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    width: 200px;
+    align-self: flex-end;
 }
 
 .player-name {
@@ -262,4 +276,48 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font: 700 64px 'Roboto', sans-serif;
+}
+
+.game-explanation {
+    margin-top: 100px;
+    width: 300px;
+}
+
+.game-name {
+    font: 400 36px 'Roboto', sans-serif;
+    margin-bottom: 20px;
+    color: #d3d3d3;
+    text-align: right;
+}
+
+.game-explanation-text {
+    font: 400 18px/1.4 'Roboto', sans-serif;
+    color: #c9c9c9;
+    text-align: right;
+}
+
+.game-mode {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid white;
+    width: 300px;
+}
+
+.game-mode-text {
+    font: 400 20px/1.4 'Roboto', sans-serif;
+    color: #c9c9c9;
+    text-align: right;
+}
+
+.game-mode-switch-button {
+    display: block;
+    margin: 25px auto 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    font: 400 22px 'Roboto', sans-serif;
+    color: #ffffff;
+    background: transparent;
+    cursor: pointer;
+    letter-spacing: 2px;
 }

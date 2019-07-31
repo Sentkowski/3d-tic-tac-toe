@@ -1,5 +1,6 @@
 import gameFlowController from './gameFlowController';
 import gameDisplayer from './gameDisplayer.js';
+import boardExpander from './boardExpander';
 
 const interfaceController = (function () {
     let currPersp = window.innerHeight;
@@ -103,6 +104,10 @@ const interfaceController = (function () {
         }
     }
 
+    const handleGameModeChange = () => {
+        boardExpander.expand();
+    }
+
     const appendScore = () => {
         const players = gameFlowController.getPlayers();
         const wrappers = document.querySelectorAll('.player-name-wrapper');
@@ -129,6 +134,9 @@ const interfaceController = (function () {
 
         const startButton = document.querySelector(".start");
         startButton.addEventListener('click', handleStart);
+
+        const modeButton = document.querySelector(".game-mode-switch-button");
+        modeButton.addEventListener('click', handleGameModeChange);
     }
 
     return { initInterface, showNextPlayer, announceWinner, appendScore }
