@@ -64,7 +64,7 @@ body {
 
 .game-board {
   width: 300px;
-  height: 800px;
+  height: 100vh;
   position: relative;
   perspective: 3000px;
   perspective-origin: center 100vh;
@@ -94,7 +94,8 @@ body {
     .game-board {
       margin-left: 0;
       height: 100vh;
-      min-height: 570px; } }
+      min-height: 570px;
+      height: 800px; } }
 
 @keyframes appear {
   from {
@@ -183,7 +184,10 @@ body {
 
 .rotate-right {
   left: 50%;
-  transform: translateX(calc(20vh - 50%)) scaleX(-1); }
+  transform: translateX(calc(175px - 50%)) scaleX(-1); }
+  @media screen and (max-width: 799px) {
+    .rotate-right {
+      transform: translateX(calc(20vh - 50%)) scaleX(-1); } }
 
 .start {
   position: absolute;
