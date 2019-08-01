@@ -15,12 +15,20 @@ const gameFlowController = (function () {
 
     let gameSize = 3;
 
+    let gameStarted = false;
+
     const getCurrPlayer = () => currPlayer;
 
     const getGameSize = () => gameSize;
 
+    const getGameStarted = () => gameStarted;
+
     function _nextPlayer() {
-        currPlayer = (currPlayer === playerOne) ? playerTwo : playerOne;
+        if (currPlayer === null) {
+            currPlayer = (Math.random() > 0.5) ? playerTwo : playerOne;
+        } else {
+            currPlayer = (currPlayer === playerOne) ? playerTwo : playerOne;
+        }
         interfaceController.showNextPlayer(currPlayer.getName(), currPlayer.getMark());
     }
 
@@ -34,15 +42,14 @@ const gameFlowController = (function () {
 
     const gameInit = () => {
         gameFinished = false;
+        gameStarted = true;
         currPlayer = null;
         const squares = document.querySelectorAll(".square");
         squares.forEach((square, i) => {
             square.addEventListener('click', () => handleSquareClick(i));
         });
         gameDisplayer.toggleActive();
-        setTimeout(() => {
-            _nextPlayer();
-        }, 200);
+        _nextPlayer();
     }
 
     const handleSquareClick = (position) => {
@@ -69,11 +76,18 @@ const gameFlowController = (function () {
         boardExpander.expand();
     }
 
+    function shrinkGame() {
+        gameSize = 3;
+        gameDisplayer.resetSquares();
+        gameBoard.gameResize();
+        boardExpander.shrink();
+    }
+
     const getPlayers = () => {
         return [playerOne, playerTwo];
     }
 
-    return { gameInit, clearGame, getPlayers, getCurrPlayer, expandGame, getGameSize }
+    return { gameInit, clearGame, getPlayers, getCurrPlayer, expandGame, getGameSize, getGameStarted, shrinkGame }
 })();
 
 export default gameFlowController;

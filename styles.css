@@ -55,19 +55,22 @@ body {
   width: 100%;
   margin-left: auto;
   display: flex;
-  height: 100vh;
   justify-content: center;
   align-items: flex-end; }
+  @media screen and (max-width: 799px) {
+    .game-container {
+      flex-direction: column;
+      align-items: center; } }
 
 .game-board {
-  width: 50%;
-  min-width: 300px;
-  height: 100%;
+  width: 300px;
+  height: 800px;
   position: relative;
   perspective: 3000px;
   perspective-origin: center 100vh;
   transition: perspective-origin 0.2s;
   padding-bottom: 50px;
+  margin-left: 200px;
   transform-style: preserve-3d; }
   .game-board.deactivated ul li button {
     border-color: #4d4b5a; }
@@ -84,6 +87,14 @@ body {
     opacity: 1; }
     .game-board.changed-mode .level {
       transition: transform 0.8s, opacity 0.3s; }
+  @media screen and (min-width: 800px) and (max-width: 1000px) {
+    .game-board {
+      margin-left: 10vw; } }
+  @media screen and (max-width: 799px) {
+    .game-board {
+      margin-left: 0;
+      height: 100vh;
+      min-height: 570px; } }
 
 @keyframes appear {
   from {
@@ -110,6 +121,12 @@ body {
     transform: rotateX(50deg) translateZ(50vh) translateX(-50%); }
   .level:nth-of-type(3) {
     transform: rotateX(50deg) translateZ(25vh) translateX(-50%); }
+  @media screen and (max-width: 799px) {
+    .level {
+      width: 25vh;
+      height: 25vh;
+      min-width: 150px;
+      min-height: 150px; } }
 
 .li:nth-of-type(odd) button {
   border-color: #6141A6; }
@@ -141,6 +158,9 @@ body {
     border-color: #ffffff;
     background-color: #ffffff;
     box-shadow: 0 0 16px 2px white; }
+  @media screen and (max-width: 799px) {
+    .mark-button {
+      font-size: 24px; } }
 
 .rotate-left, .rotate-right {
   position: absolute;
@@ -157,10 +177,13 @@ body {
 .rotate-left {
   left: 50%;
   transform: translateX(calc(-175px - 50%)); }
+  @media screen and (max-width: 799px) {
+    .rotate-left {
+      transform: translateX(calc(-20vh - 50%)); } }
 
 .rotate-right {
   left: 50%;
-  transform: translateX(calc(175px - 50%)) scaleX(-1); }
+  transform: translateX(calc(20vh - 50%)) scaleX(-1); }
 
 .start {
   position: absolute;
@@ -186,13 +209,27 @@ body {
   align-self: flex-start;
   margin-top: 100px;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  margin-left: -100px; }
+  @media screen and (min-width: 800px) and (max-width: 1000px) {
+    .game-info {
+      margin-left: -10vw; } }
+  @media screen and (max-width: 799px) {
+    .game-info {
+      align-self: center;
+      margin-top: 25px;
+      margin-left: 0;
+      order: 1; } }
 
 .players-details {
   display: flex;
   flex-direction: column;
   width: 200px;
   align-self: flex-end; }
+  @media screen and (max-width: 799px) {
+    .players-details {
+      align-self: flex-start;
+      margin-bottom: 50px; } }
 
 .player-name {
   position: relative;
@@ -249,7 +286,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   transition: color 0.15s, opacity 0.15s;
-  color: transparent; }
+  color: transparent;
+  white-space: nowrap; }
   .player-message.X {
     color: #66c4ff; }
   .player-message.O {
@@ -270,17 +308,26 @@ body {
 .game-explanation {
   margin-top: 100px;
   width: 300px; }
+  @media screen and (max-width: 799px) {
+    .game-explanation {
+      margin-top: 0; } }
 
 .game-name {
   font: 400 36px 'Roboto', sans-serif;
   margin-bottom: 20px;
   color: #d3d3d3;
   text-align: right; }
+  @media screen and (max-width: 799px) {
+    .game-name {
+      text-align: left; } }
 
 .game-explanation-text {
   font: 400 18px/1.4 'Roboto', sans-serif;
   color: #c9c9c9;
   text-align: right; }
+  @media screen and (max-width: 799px) {
+    .game-explanation-text {
+      text-align: left; } }
 
 .game-mode {
   margin-top: 20px;
@@ -292,6 +339,9 @@ body {
   font: 400 20px/1.4 'Roboto', sans-serif;
   color: #c9c9c9;
   text-align: right; }
+  @media screen and (max-width: 799px) {
+    .game-mode-text {
+      text-align: left; } }
 
 .game-mode-switch-button {
   display: block;
@@ -304,3 +354,6 @@ body {
   background: transparent;
   cursor: pointer;
   letter-spacing: 2px; }
+  @media screen and (max-width: 799px) {
+    .game-mode-switch-button {
+      margin-bottom: 50px; } }

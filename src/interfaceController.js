@@ -3,7 +3,6 @@ import gameFlowController from './gameFlowController';
 const interfaceController = (function () {
     let currPersp = window.innerHeight;
     let currRotate = 0;
-    let gameStarted = false;
     const initialLevelTranforms = [
         'rotateX(50deg) translateZ(75vh) translateX(-50%) rotateZ(0deg)',
         'rotateX(50deg) translateZ(50vh) translateX(-50%) rotateZ(0deg)',
@@ -59,10 +58,9 @@ const interfaceController = (function () {
         currRotate += rotateDelta;
     }
 
-    const handleStart = (e) => {
-        if (!gameStarted) {
+    const handleStart = () => {
+        if (!gameFlowController.getGameStarted()) {
             gameFlowController.gameInit();
-            gameStarted = true;
             const startButton = document.querySelector(".start");
             startButton.classList.add('restart');
             startButton.textContent = 'restart';
@@ -107,8 +105,26 @@ const interfaceController = (function () {
     }
 
     const handleGameModeChange = () => {
-        gameFlowController.expandGame();
-        currRotate = 0;
+        if (gameFlowController.getGameSize() === 3) {
+            const modeButton = document.querySelector(".game-mode-switch-button");
+            modeButton.textContent = '3x3x3 mode';
+            modeButton.disabled = true;
+            gameFlowController.expandGame();
+            currRotate = 0;
+            setTimeout(() => {
+                modeButton.disabled = false;
+            }, 700);
+        } else if (gameFlowController.getGameSize() === 4) {
+            const modeButton = document.querySelector(".game-mode-switch-button");
+            modeButton.textContent = '4x4x4 mode';
+            modeButton.disabled = true;
+            gameFlowController.shrinkGame();
+            currRotate = 0;
+            setTimeout(() => {
+                modeButton.disabled = false;
+            }, 700);
+        }
+
     }
 
     const appendScore = () => {
