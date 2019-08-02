@@ -1,4 +1,4 @@
-import interfaceController from './interfaceController';
+import interfaceController from "./interfaceController";
 
 // gameFlowController.gameInit();
 interfaceController.initInterface();

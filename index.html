@@ -1,81 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title></title>
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta content='width=device-width, initial-scale=1' name='viewport'>
-  <title></title>
-  <meta name="description" content="" />
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <main class="game-container">
-    <header class="game-info">
-      <div class="players-details">
-        <div class="player-name-wrapper">
-          <input class="player-name" type="text" minlength="1" maxlength="20">
+  <body>
+    <main class="game-container">
+      <header class="game-info">
+        <div class="players-details">
+          <div class="player-name-wrapper">
+            <input
+              class="player-name"
+              type="text"
+              minlength="1"
+              maxlength="20"
+            />
+          </div>
+          <div class="player-name-wrapper">
+            <input
+              class="player-name"
+              type="text"
+              minlength="1"
+              maxlength="20"
+            />
+          </div>
+          <p class="rename-note">
+            <small class="rename-note-text">Tap on a name to change it</small>
+          </p>
         </div>
-        <div class="player-name-wrapper">
-          <input class="player-name" type="text" minlength="1" maxlength="20">
+        <div class="game-explanation">
+          <h1 class="game-name">3D Tic-Tac-Toe</h1>
+          <p class="game-explanation-text">
+            In this variant of the classic strategy game you can build your rows
+            in completely new directions! Straight down, diagonally down right,
+            etc. – it's all up to you. Use this to outsmart your rival!
+          </p>
         </div>
-        <p class="rename-note">
-          <small class="rename-note-text">Tap on a name to change it</small>
-        </p>  
-      </div>
-      <div class="game-explanation">
-        <h1 class="game-name">3D Tic-Tac-Toe</h1>
-        <p class="game-explanation-text">In this variant of the classic strategy game you can build your rows in completely new directions! Straight down, diagonally down right, etc. – it's all up to you. Use this to outsmart your rival!</p>
-      </div>
-      <div class="game-mode">
-        <p class="game-mode-text">Is the small board too easy and obvious? Real competition starts on 4x4x4 board! Give it a try now.</p>
-        <button class="game-mode-switch-button">4x4x4 mode</button>
-      </div>
-    </header>
-    <section class="game-board deactivated">
+        <div class="game-mode">
+          <p class="game-mode-text">
+            Is the small board too easy and obvious? Real competition starts on
+            4x4x4 board! Give it a try now.
+          </p>
+          <button class="game-mode-switch-button">4x4x4 mode</button>
+        </div>
+      </header>
       <div class="player-message">
         <p class="player-message-text"></p>
         <div class="player-mark"></div>
       </div>
-      <ul data-position="top" class="level">
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-      </ul>
-      <ul data-position="center" class="level">
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-      </ul>
-      <ul data-position="bottom" class="level">
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-        <li class="square"> <button class="mark-button"></button> </li>
-      </ul>
-      <button class="rotate-left"></button>
-      <button class="rotate-right"></button>
-      <button class="start">start</button>
-    </section>
-  </main>
-  <script src="dist/main.js"></script>
-</body>
+      <section class="game-board deactivated">
+        <div>
+          <ul data-position="top" class="level">
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+          </ul>
+          <ul data-position="center" class="level">
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+          </ul>
+          <ul data-position="bottom" class="level">
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+            <li class="square"><button class="mark-button"></button></li>
+          </ul>
+        </div>
+        <button class="rotate-left"></button>
+        <button class="rotate-right"></button>
+        <input class="perspective-slider" type="range" min="-200" max="2000" />
+        <button class="start">start</button>
+      </section>
+    </main>
+    <script src="dist/main.js"></script>
+  </body>
 </html>
