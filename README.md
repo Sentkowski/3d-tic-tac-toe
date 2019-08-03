@@ -4,6 +4,6 @@
 
 Part of [the Odin Project](https://www.theodinproject.com/) curriculum.
 
-[Play now!](https://sentkowski.github.io/3d-tic-tac-toe/).
+[Play now!](https://sentkowski.github.io/3d-tic-tac-toe/)
 
 Rules mentioned [here](https://www.thegamegal.com/2010/08/18/3-d-triple-decker-tic-tac-toe/).
