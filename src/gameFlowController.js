@@ -1,26 +1,20 @@
 import gameBoard from "./gameBoard.js";
-import gameDisplayer from "./gameDisplayer.js";
+import boardStylesManager from "./boardStylesManager.js";
 import Player from "./Player";
 import interfaceController from "./interfaceController.js";
 import boardExpander from "./boardExpander.js";
-import boardStylesManager from "./boardStylesManager.js";
 
 const gameFlowController = (function() {
   const playerOne = Player("First Player", "X");
   const playerTwo = Player("Second Player", "O");
 
   let currPlayer = null;
-
   let gameFinished = false;
-
   let gameSize = 3;
-
   let gameStarted = false;
 
   const getCurrPlayer = () => currPlayer;
-
   const getGameSize = () => gameSize;
-
   const getGameStarted = () => gameStarted;
 
   function _nextPlayer() {
@@ -37,7 +31,7 @@ const gameFlowController = (function() {
 
   function clearGame() {
     gameBoard.clearBoard();
-    gameDisplayer.resetSquares();
+    boardStylesManager.resetSquares();
     currPlayer = null;
     gameFinished = false;
     _nextPlayer();
@@ -51,18 +45,18 @@ const gameFlowController = (function() {
     squares.forEach((square, i) => {
       square.addEventListener("click", () => handleSquareClick(i));
     });
-    gameDisplayer.toggleActive();
+    boardStylesManager.toggleActive();
     _nextPlayer();
   };
 
   const handleSquareClick = position => {
     if (gameFinished) return;
     if (gameBoard.insertMove(currPlayer.getMark(), position) !== false) {
-      gameDisplayer.markSquare(currPlayer.getMark(), position);
+      boardStylesManager.markSquare(currPlayer.getMark(), position);
       const winResults = gameBoard.checkWin();
       if (winResults) {
         currPlayer.addWin();
-        gameDisplayer.announceWinner(winResults);
+        boardStylesManager.announceWinner(winResults);
         interfaceController.appendScore();
         interfaceController.announceWinner(
           currPlayer.getName(),
@@ -77,7 +71,7 @@ const gameFlowController = (function() {
 
   function expandGame() {
     gameSize = 4;
-    gameDisplayer.resetSquares();
+    boardStylesManager.resetSquares();
     gameBoard.gameResize();
     boardExpander.expand();
     boardStylesManager.resetRotate();
@@ -85,7 +79,7 @@ const gameFlowController = (function() {
 
   function shrinkGame() {
     gameSize = 3;
-    gameDisplayer.resetSquares();
+    boardStylesManager.resetSquares();
     gameBoard.gameResize();
     boardExpander.shrink();
     boardStylesManager.resetRotate();

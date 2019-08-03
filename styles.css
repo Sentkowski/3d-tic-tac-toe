@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -134,6 +135,9 @@ table {
 * {
   box-sizing: border-box; }
 
+.preload * {
+  transition-duration: 0.01s !important; }
+
 body {
   background-color: #0d000d; }
 
@@ -198,7 +202,8 @@ body {
   grid-template: repeat(3, 1fr)/repeat(3, 1fr);
   transform: rotate3d(1, 0, 0, 50deg);
   transition: transform 0.8s, opacity 0.3s;
-  margin-bottom: -20vh; }
+  margin-bottom: -20vh;
+  transform-style: preserve-3d; }
   .level:nth-of-type(1) {
     transform: rotateX(50deg) translateZ(75vh) translateX(-50%); }
   .level:nth-of-type(2) {
@@ -484,10 +489,28 @@ body {
   color: #ffffff;
   background: transparent;
   cursor: pointer;
-  letter-spacing: 2px; }
+  letter-spacing: 2px;
+  margin-bottom: 25px; }
   @media screen and (max-width: 599px) {
     .game-mode-switch-button {
-      margin-bottom: 50px; } }
+      margin-bottom: 25px; } }
+
+.nav-list {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px; }
+
+.nav-link {
+  color: #bebebe;
+  font: 16px "Roboto", sans-serif;
+  margin-left: 25px;
+  position: relative; }
+  .nav-link::after {
+    position: absolute;
+    content: "↗";
+    right: 0;
+    top: 0;
+    transform: translateX(100%); }
 
 .perspective-slider {
   position: absolute;

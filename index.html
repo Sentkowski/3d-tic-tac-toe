@@ -3,16 +3,39 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title></title>
-    <meta name="description" content="" />
+    <title>3D Tic Tac Toe</title>
+    <meta
+      name="description"
+      content="3D version of a classic game – play on 3x3x or 4x4x4 board!"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon-16x16.png"
+    />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
   </head>
 
-  <body>
+  <body class="preload">
     <main class="game-container">
       <header class="game-info">
         <div class="players-details">
@@ -49,7 +72,25 @@
             Is the small board too easy and obvious? Real competition starts on
             4x4x4 board! Give it a try now.
           </p>
-          <button class="game-mode-switch-button">4x4x4 mode</button>
+          <button class="game-mode-switch-button">switch to 4x4x4</button>
+          <footer class="page-footer">
+            <nav class="page-nav">
+              <ul class="nav-list">
+                <li class="nav-item">
+                  <a
+                    href="https://www.thegamegal.com/2010/08/18/3-d-triple-decker-tic-tac-toe/"
+                    class="nav-link"
+                    >Rules</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a href="https://github.com/Sentkowski" class="nav-link"
+                    >Author</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </footer>
         </div>
       </header>
       <div class="player-message">
@@ -57,41 +98,39 @@
         <div class="player-mark"></div>
       </div>
       <section class="game-board deactivated">
-        <div>
-          <ul data-position="top" class="level">
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-          </ul>
-          <ul data-position="center" class="level">
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-          </ul>
-          <ul data-position="bottom" class="level">
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-            <li class="square"><button class="mark-button"></button></li>
-          </ul>
-        </div>
+        <ul data-position="top" class="level">
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+        </ul>
+        <ul data-position="center" class="level">
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+        </ul>
+        <ul data-position="bottom" class="level">
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+          <li class="square"><button class="mark-button"></button></li>
+        </ul>
         <button class="rotate-left"></button>
         <button class="rotate-right"></button>
         <input class="perspective-slider" type="range" min="-200" max="2000" />

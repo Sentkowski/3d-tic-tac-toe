@@ -97,7 +97,7 @@ const interfaceController = (function() {
   const handleGameModeChange = () => {
     if (gameFlowController.getGameSize() === 3) {
       const modeButton = document.querySelector(".game-mode-switch-button");
-      modeButton.textContent = "3x3x3 mode";
+      modeButton.textContent = "switch to 3x3x3";
       modeButton.disabled = true;
       gameFlowController.expandGame();
       setTimeout(() => {
@@ -105,7 +105,7 @@ const interfaceController = (function() {
       }, 700);
     } else if (gameFlowController.getGameSize() === 4) {
       const modeButton = document.querySelector(".game-mode-switch-button");
-      modeButton.textContent = "4x4x4 mode";
+      modeButton.textContent = "switch to 4x4x4";
       modeButton.disabled = true;
       gameFlowController.shrinkGame();
       setTimeout(() => {

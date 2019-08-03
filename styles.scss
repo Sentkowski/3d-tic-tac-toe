@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.preload * {
+  transition-duration: 0.01s !important ;
+}
+
 body {
   background-color: #0d000d;
 }
@@ -86,6 +90,7 @@ body {
   transform: rotate3d(1, 0, 0, 50deg);
   transition: transform 0.8s, opacity 0.3s;
   margin-bottom: -20vh;
+  transform-style: preserve-3d;
 
   &:nth-of-type(1) {
     transform: rotateX(50deg) translateZ(75vh) translateX(-50%);
@@ -443,9 +448,31 @@ body {
   background: transparent;
   cursor: pointer;
   letter-spacing: 2px;
+  margin-bottom: 25px;
 
   @media screen and (max-width: 599px) {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
+  }
+}
+
+.nav-list {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.nav-link {
+  color: #bebebe;
+  font: 16px "Roboto", sans-serif;
+  margin-left: 25px;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "↗";
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
   }
 }
 
